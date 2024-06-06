@@ -32,6 +32,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.jetnews.data.AppContainer
 import com.example.jetnews.ui.components.AppNavRail
 import com.example.jetnews.ui.theme.JetnewsTheme
+import com.example.jetnews.utils.JetnewsNavAnalytics
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,6 +45,10 @@ fun JetnewsApp(
         val navController = rememberNavController()
         val navigationActions = remember(navController) {
             JetnewsNavigationActions(navController)
+        }
+
+        remember(navController) {
+          JetnewsNavAnalytics(navController)
         }
 
         val coroutineScope = rememberCoroutineScope()

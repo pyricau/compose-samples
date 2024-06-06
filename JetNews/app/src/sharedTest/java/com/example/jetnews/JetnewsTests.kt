@@ -16,6 +16,7 @@
 
 package com.example.jetnews
 
+import android.os.Build
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -25,10 +26,15 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToString
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import leakcanary.repeatingAndroidInProcessScenario
+import leakcanary.repeatingJvmInProcessScenario
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import shark.GrowingObjectNodes
+import shark.HeapDiff
 
 @RunWith(AndroidJUnit4::class)
 class JetnewsTests {
@@ -70,5 +76,34 @@ class JetnewsTests {
         ).performClick()
         composeTestRule.onNodeWithText("Interests").performClick()
         composeTestRule.onNodeWithText("Topics").assertExists()
+    }
+
+    @Test
+    fun drawer_nav_does_not_grow_heap() {
+        val detector = if (Build.MODEL == "robolectric") {
+            HeapDiff.repeatingJvmInProcessScenario()
+        } else {
+            HeapDiff.repeatingAndroidInProcessScenario()
+        }
+
+        val heapDiff = detector.findRepeatedlyGrowingObjects(
+                scenarioLoopsPerDump = 10
+        ) {
+            composeTestRule.onNodeWithContentDescription(
+                    label = "Open navigation drawer",
+                    useUnmergedTree = true
+            ).performClick()
+            composeTestRule.onNodeWithText("Interests").performClick()
+            composeTestRule.onNodeWithText("Topics").assertExists()
+
+            composeTestRule.onNodeWithContentDescription(
+                    label = "Open navigation drawer",
+                    useUnmergedTree = true
+            ).performClick()
+            composeTestRule.onNodeWithText("Home").performClick()
+            composeTestRule.onNodeWithText("Top stories for you").assertExists()
+        }
+
+        Assert.assertEquals(emptyList<GrowingObjectNodes>(), heapDiff.growingObjects)
     }
 }

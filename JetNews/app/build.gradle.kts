@@ -100,6 +100,12 @@ composeCompiler {
 }
 
 dependencies {
+
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:3.0-alpha-8")
+    androidTestImplementation("com.squareup.leakcanary:leakcanary-android-test:3.0-alpha-8")
+    testImplementation("com.squareup.leakcanary:leakcanary-jvm-test:3.0-alpha-8")
+    testImplementation("com.squareup.leakcanary:leakcanary-android-test:3.0-alpha-8")
+
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
