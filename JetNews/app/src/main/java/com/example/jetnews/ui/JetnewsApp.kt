@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.jetnews.JetnewsAnalytics
 import com.example.jetnews.data.AppContainer
 import com.example.jetnews.ui.components.AppNavRail
 import com.example.jetnews.ui.theme.JetnewsTheme
@@ -44,6 +45,9 @@ fun JetnewsApp(
         val navController = rememberNavController()
         val navigationActions = remember(navController) {
             JetnewsNavigationActions(navController)
+        }
+        remember(navController) {
+            JetnewsAnalytics(navController)
         }
 
         val coroutineScope = rememberCoroutineScope()
