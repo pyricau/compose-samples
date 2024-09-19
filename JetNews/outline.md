@@ -147,7 +147,7 @@ Don't control when the GC runs, it does partial runs, tons of temporary objects 
 
 Talk from Jesse earlier today: "GC You Later, Allocator"
 
-```
+```kotlin
     @Test
     fun baguette() {
         val heapDumps = (1..2).map {
@@ -215,7 +215,7 @@ object growth detection
     testImplementation("com.squareup.leakcanary:leakcanary-android-test:3.0-alpha-8")
 ```
 
-```
+```kotlin
     @Test
     fun baguette() {
         val detector = HeapDiff.repeatingAndroidInProcessScenario()
@@ -241,7 +241,6 @@ object growth detection
         Assert.assertEquals(emptyList<GrowingObjectNodes>(), heapDiff.growingObjects)
     }
 ```
-
 
 https://blog.p-y.wtf/cutting-some-slack-for-leaks-and-giggles
 

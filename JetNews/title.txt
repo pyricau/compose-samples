@@ -1,0 +1,5 @@
+Root causing memory growth
+with LeakCanary 3
+
+Pierre-Yves Ricau, Android baker at Square/Block
+P-Y.wtf
