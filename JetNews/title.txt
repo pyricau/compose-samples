@@ -3,3 +3,6 @@ with LeakCanary 3
 
 Pierre-Yves Ricau, Android baker at Square/Block
 P-Y.wtf
+
+(while we wait:
+hit me up if you want a LeakCanary sticker)
