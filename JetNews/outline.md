@@ -111,6 +111,8 @@ What if we could look at the contents of memory, with code? Could we reuse this 
 
 Implement a solution with object count and just two iterations.
 
+Show big graph picture
+
 ```kotlin
     @Test
     fun baguette() {
@@ -142,6 +144,8 @@ Implement a solution with object count and just two iterations.
         Assert.assertEquals(objectCounts[0], objectCounts[1])
     }
 ```
+
+Show GC picture
 
 Don't control when the GC runs, it does partial runs, tons of temporary objects created all the time.
 
